@@ -1,0 +1,42 @@
+-- Database: `bb_db`
+
+CREATE DATABASE bb_db CHARACTER SET utf8_general_ci;
+use bb_db;
+
+-- Table: `thread`
+
+CREATE TABLE `thread` (
+  `idTitle` int(11) NOT NULL,
+  `idName` int(11) NOT NULL,
+  `name` text NOT NULL,
+  `trip` text NOT NULL,
+  `email` text,
+  `date` datetime NOT NULL,
+  `password` text,
+  `article` text NOT NULL,
+  `down` tinyint(1) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+ALTER TABLE `thread`
+  ADD PRIMARY KEY (`idTitle`,`idName`);
+
+INSERT INTO `thread` (`idTitle`, `idName`, `name`, `trip`, `email`, `date`, `password`, `article`, `down`) VALUES ('0', '1', '管理人', '**********', NULL, '1111-11-11 11:11:11', '1676e9655a317f9dca3edcbd8d5b279c1e2141a54bc74aff798be42e3513fdd38a9688326eb847ef68c46689e584d8c41ca1a8dcd4c12bbb86', 'PHPで作成した掲示板です。<br />このスレッドは固定です。<br />投稿するさいは本文を選択して、上のボタンを使って<br />[〜]テキスト[/〜]<br />となるように記述してみてください。<br />※JavaScriptをoffにしている場合この機能は使えません。', NULL), ('1', '1', '管理人', '**********', NULL, '2019-1-1 00:00:00', '1676e9655a317f9dca3edcbd8d5b279c1e2141a54bc74aff798be42e3513fdd38a9688326eb847ef68c46689e584d8c41ca1a8dcd4c12bbb86', 'レス999確認用スレッドです。<br>SQL--thread999.txtを読み込み、2レスしてください。', NULL);
+
+-- Table: `titleList`
+
+CREATE TABLE `titleList` (
+  `idTitle` int(11) NOT NULL,
+  `title` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+ALTER TABLE `titleList`
+  ADD PRIMARY KEY (`idTitle`);
+
+INSERT INTO `titleList` (`idTitle`, `title`) VALUES ('0', '****利用規約****************'), ('1', 'レス999確認');
+
+-- User: `bb_user`
+
+CREATE USER 'bb_user'@'localhost' IDENTIFIED WITH mysql_native_password AS 'bbpass';
+GRANT SELECT, INSERT, UPDATE, DELETE ON *.* TO 'bb_user'@'localhost' REQUIRE NONE WITH MAX_QUERIES_PER_HOUR  MAX_CONNECTIONS_PER_HOUR  MAX_UPDATES_PER_HOUR  MAX_USER_CONNECTIONS ;
